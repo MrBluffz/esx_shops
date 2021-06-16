@@ -8,4 +8,4 @@
 
 ### Photo guide for those who don't understand the config notes.
 Make sure THIS
-![ShopsConfig](https://imgur.com/sXwQJYW)
+![ShopsConfig](https://i.imgur.com/sXwQJYW.png)
