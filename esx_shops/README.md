@@ -1,29 +1,6 @@
-# esx_shops
+See original Legal info below.
 
-## Download & Installation
-
-### Using [fvm](https://github.com/qlaffont/fvm-installer)
-```
-fvm install --save --folder=esx esx-org/esx_shops
-```
-
-### Using Git
-```
-cd resources
-git clone https://github.com/ESX-Org/esx_shops [esx]/esx_shops
-```
-
-### Manually
-- Download https://github.com/ESX-Org/esx_shops/archive/master.zip
-- Put it in the `[esx]` directory
-
-## Installation
-- Import `esx_shops.sql` to your database
-- Add this in your `server.cfg`:
-
-```
-start esx_shops
-```
+This is an edit of ESX_Shops meant specifically and only for https://modit.store/products/mf-inventory?variant=39985142268087
 
 # Legal
 ### License
