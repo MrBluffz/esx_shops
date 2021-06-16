@@ -19,4 +19,7 @@ Matches **THIS**
 
 ## Notes
 
-You can add as many shops in ESX_Shops as you want. The blips will show up no matter what. The shop won't actually work unless you have everything matching perfectly within MF_Inventory.
+**This is not a working standalone shop. This is merely a base to trigger MF_Inventory built-in shop system. Check out https://modit.store/products/mf-inventory?variant=39985142268087 for more information**
+
+
+There is no limit to how many shops you have in esx_shops as long as you have a matching counterpart in MF_Inventory. If you add a shop location in esx_shops and forget to add it in MF_Inventory, you will have a marker that does nothing. If you add a shop within MF_Inventory, but forget to add it to esx_shops, there will be no marker for you to activate.
