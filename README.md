@@ -2,8 +2,14 @@
 ## ESX_Shops Modified to work with MF_Inventory
 
 
-### UPDATE
-I have added job checks, and Shop Type so you can do crafting tables, and shops, both with job checks if you want. See photos below for more details
+# UPDATE
+I have added job checks, and Shop Type so you can do crafting tables, and shops, both with job checks if you want. See photos below for more details.
+
+![ShopsNewConfig](https://i.imgur.com/9HIZjk4.png)
+
+**ShopType has to be either 'shop' or 'crafting'**
+
+**If you want your new shop/crafting table to require a job, then make sure you have you have your jobs surrounded with {}, even if it's only 1 job. Multiple jobs are acceptable, as many as you would like. If you do NOT want a job requirement, then delete the entire ReqJob line from the config.**
 
 
 ### Instructions
@@ -25,7 +31,7 @@ OR **THIS**
 
 ![MFCrafting](https://i.imgur.com/ETszo2S.png)
 
-### UPDATE
+# UPDATE
 ![ShopsNewConfig](https://i.imgur.com/9HIZjk4.png)
 
 **ShopType has to be either 'shop' or 'crafting'**
