@@ -37,14 +37,6 @@ OR **THIS**
 
 ![MFCrafting](https://i.imgur.com/ETszo2S.png)
 
-# UPDATE
-![ShopsNewConfig](https://i.imgur.com/9HIZjk4.png)
-
-**ShopType has to be either 'shop' or 'crafting'**
-
-**If you want your new shop/crafting table to require a job, then make sure you have you have your jobs surrounded with {}, even if it's only 1 job. Multiple jobs are acceptable, as many as you would like. If you do NOT want a job requirement, then delete the entire ReqJob line from the config.**
-
-
 ## Notes
 
 **This is not a working standalone shop. This is merely a base to trigger MF_Inventory built-in shop system. Check out https://modit.store/products/mf-inventory for more information**
