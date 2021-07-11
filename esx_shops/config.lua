@@ -7,8 +7,8 @@ Config.Locale = 'en'
 
 Config.Zones = {
 
-	market = {
-		Pos = {
+	market = {											-- This name must match the shop identifier or crafting recipe name in MF_Inventory EXACTLY. It is cap sensitive.
+		Pos = {											-- List of all shop/crafting table locations locations that you want to use the identifier above.
 			vector3(-47.29,-1756.7,29.42),
 			vector3(25.81,-1345.25,29.5),
 			vector3(-707.32,-912.9,19.22),
@@ -29,8 +29,8 @@ Config.Zones = {
 		ShowBlip = true,
  		ShowMarker = true,
 		Label = '24/7',
-		ShopType = 'shop',
-		ReqJob = {'police'}
+		ShopType = 'shop',									-- This needs to be 'shop' or 'crafting'
+		ReqJob = {'police'}									-- Delete entire line if you don't want a job check, otherwise make sure your job/jobs are in { } like this example {'insertjob', 'insertjob2'}
 	},
 
 	liqour = {
