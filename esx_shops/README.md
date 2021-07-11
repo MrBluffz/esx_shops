@@ -15,7 +15,7 @@ Make sure you have you have your jobs surrounded with {}, even if it's only 1 jo
 
 You can have as many jobs as you want within the ReqJobs { }. If you do **NOT** want a job requirement, then delete the entire ReqJob line from the config.
 
-Edit lines 99 and 114 of the Client.lua to change it to your notification system for wrong job.
+**Edit lines 99 and 114 of the Client.lua to change it to your notification system for wrong job.**
 
 See below additional photo on making sure your crafting table comes up.
 
