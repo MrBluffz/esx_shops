@@ -9,7 +9,13 @@ I have added job checks, and Shop Type so you can do crafting tables, and shops,
 
 **ShopType has to be either 'shop' or 'crafting'**
 
-**If you want your new shop/crafting table to require a job, then make sure you have you have your jobs surrounded with {}, even if it's only 1 job. Multiple jobs are acceptable, as many as you would like. If you do NOT want a job requirement, then delete the entire ReqJob line from the config.**
+**If you want your new shop/crafting table to require a job
+
+Make sure you have you have your jobs surrounded with {}, even if it's only 1 job. ex. {'police'}, or {'police', 'ambulance', 'lawyer'}.
+
+You can have as many jobs as you want within the ReqJobs { }. If you do **NOT** want a job requirement, then delete the entire ReqJob line from the config.
+
+See below additional photo on making sure your crafting table comes up.
 
 
 ### Instructions
