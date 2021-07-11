@@ -68,9 +68,15 @@ Citizen.CreateThread(function()
 				local distance = #(playerCoords - v.Pos[i])
 
 				if distance < Config.DrawDistance then
-					if v.ShowMarker then
-					DrawMarker(Config.MarkerType, v.Pos[i], 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Config.MarkerSize.x, Config.MarkerSize.y, Config.MarkerSize.z, Config.MarkerColor.r, Config.MarkerColor.g, Config.MarkerColor.b, 100, false, true, 2, false, nil, nil, false)
-				  end
+					if v.ShopType == 'shop' then
+						if v.ShowMarker then
+							DrawMarker(Config.SMarkerType, v.Pos[i], 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Config.SMarkerSize.x, Config.SMarkerSize.y, Config.SMarkerSize.z, Config.SMarkerColor.r, Config.SMarkerColor.g, Config.SMarkerColor.b, 100, false, true, 2, false, nil, nil, false)
+				  		end
+					elseif v.ShopType == 'crafting' then
+						if v.ShowMarker then
+							DrawMarker(Config.MarkerType, v.Pos[i], 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Config.CMarkerSize.x, Config.CMarkerSize.y, Config.CMarkerSize.z, Config.CMarkerColor.r, Config.CMarkerColor.g, Config.CMarkerColor.b, 100, false, true, 2, false, nil, nil, false)
+				  		end
+					end
 					letSleep = false
 
 					if distance < 2.0 then
