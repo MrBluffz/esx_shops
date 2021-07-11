@@ -7,8 +7,8 @@ Config.Locale = 'en'
 
 Config.Zones = {
 
-	market = {											-- This name must match the shop identifier in MF_Inventory EXACTLY. It is cap sensitive.
-		Pos = {											-- List of all shop locations that you want to use the identifier above.
+	market = {
+		Pos = {
 			vector3(-47.29,-1756.7,29.42),
 			vector3(25.81,-1345.25,29.5),
 			vector3(-707.32,-912.9,19.22),
@@ -23,12 +23,14 @@ Config.Zones = {
 			vector3(1699.27,4923.54,42.06),
 			vector3(1728.69,6414.18,35.04)
 		},
-		Size  = 1.0,									-- How big the blip will be
-		Type  = 59,										-- Which blip to display 		See: https://docs.fivem.net/docs/game-references/blips/
-		Color = 25,										-- What color Blip you want		See: https://docs.fivem.net/docs/game-references/blips/
-		ShowBlip = true,								-- Set to true if you want blip, set to false if you do NOT want map blip (default: true)
- 		ShowMarker = true,								-- set to true if you want to see the cashier point. set to false if you do not want to see the cashier point. (Default: true)
-		Label = '24/7'									-- This will be the Blip name if you have ShowBlip = true. 
+		Size  = 1.0,
+		Type  = 59,
+		Color = 25,
+		ShowBlip = true,
+ 		ShowMarker = true,
+		Label = '24/7',
+		ShopType = 'shop',
+		ReqJob = {'police'}
 	},
 
 	liqour = {
@@ -48,7 +50,9 @@ Config.Zones = {
 		Color = 27,
 		ShowBlip = true,
 		ShowMarker = true,
-		Label = 'Liquor Store'
+		Label = 'Liquor Store',
+		ShopType = 'shop',
+		ReqJob = {'police', 'ambulance'}
 	},
 
 	weapon = {
@@ -68,10 +72,12 @@ Config.Zones = {
 		Color = 46,
 		ShowBlip = true,
 	  	ShowMarker = true,
-		Label = 'Weapon Shop'
-	}
+		Label = 'Weapon Shop',
+		ShopType = 'shop',
+		ReqJob = {'police', 'ambulance'}
+	},
 
---[[	CHANGEME = {											-- This is a template for you to keep adding more shops. Don't forget a comma after each shop if you make more.
+	pawn = {
 		Pos = {
 			vector3(53.27,-1479.13,29.28)
 		},
@@ -80,6 +86,21 @@ Config.Zones = {
 		Color = 28,
 		ShowBlip = true,
 		ShowMarker = true,
-		Label = 'CUSTOM NAME'
-	}		]]
+		Label = 'Pawn Shop',
+		ShopType = 'shop',
+		ReqJob = {'police', 'ambulance'}
+	},
+	police = {
+		Pos = {
+			vector3(417.09, -1012.57, 29.24)
+		},
+		Size  = 1.0,
+		Type  = 93,
+		Color = 27,
+		ShowBlip = true,
+		ShowMarker = true,
+		Label = 'Police Crafting',
+		ShopType = 'crafting',
+		ReqJob = {'police', 'ambulance'}
+	},
 }

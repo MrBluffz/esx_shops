@@ -8,63 +8,25 @@ Citizen.CreateThread(function()
 		Citizen.Wait(0)
 	end
 
-	Citizen.Wait(5000)
-
-end)
-
-function OpenShopMenu(zone)
-	local elements = {}
-	for i=1, #Config.Zones[zone].Items, 1 do
-		local item = Config.Zones[zone].Items[i]
-
-		table.insert(elements, {
-			label      = ('%s - <span style="color:green;">%s</span>'):format(item.label, _U('shop_item', ESX.Math.GroupDigits(item.price))),
-			itemLabel = item.label,
-			item       = item.name,
-			price      = item.price,
-
-			-- menu properties
-			value      = 1,
-			type       = 'slider',
-			min        = 1,
-			max        = 100
-		})
+	while ESX.GetPlayerData().job == nil do
+		Citizen.Wait(10)
 	end
 
-	ESX.UI.Menu.CloseAll()
+	ESX.PlayerData = ESX.GetPlayerData()
+	
+	Citizen.Wait(5000)
+end)
 
-	ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'shop', {
-		title    = _U('shop'),
-		align    = 'bottom-right',
-		elements = elements
-	}, function(data, menu)
-		ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'shop_confirm', {
-			title    = _U('shop_confirm', data.current.value, data.current.itemLabel, ESX.Math.GroupDigits(data.current.price * data.current.value)),
-			align    = 'bottom-right',
-			elements = {
-				{label = _U('no'),  value = 'no'},
-				{label = _U('yes'), value = 'yes'}
-		}}, function(data2, menu2)
-			if data2.current.value == 'yes' then
-				TriggerServerEvent('esx_shops:buyItem', data.current.item, data.current.value, zone)
-			end
-
-			menu2.close()
-		end, function(data2, menu2)
-			menu2.close()
-		end)
-	end, function(data, menu)
-		menu.close()
-
-		currentAction     = 'shop_menu'
-		currentActionMsg  = _U('press_menu')
-		currentActionData = {zone = zone}
-	end)
-end
-
-AddEventHandler('esx_shops:hasEnteredMarker', function(zone)
+-- Enter/Exit Marker Actual Events
+AddEventHandler('esx_shops:hasEnteredShopMarker', function(zone)
 	currentAction     = 'shop_menu'
 	currentActionMsg  = _U('press_menu')
+	currentActionData = {zone = zone}
+end)
+
+AddEventHandler('esx_shops:hasEnteredCraftingMarker', function(zone)
+	currentAction     = 'craft_menu'
+	currentActionMsg  = _U('craft_menu')
 	currentActionData = {zone = zone}
 end)
 
@@ -93,12 +55,13 @@ Citizen.CreateThread(function()
 	end
 end)
 
--- Enter / Exit marker events
+-- Enter / Exit marker checks
 Citizen.CreateThread(function()
 	while true do
 		Citizen.Wait(0)
 		local playerCoords = GetEntityCoords(PlayerPedId())
 		local isInMarker, letSleep, currentZone = false, false
+		local ShopType, ReqJob, HasJob
 
 		for k,v in pairs(Config.Zones) do
 			for i = 1, #v.Pos, 1 do
@@ -114,6 +77,8 @@ Citizen.CreateThread(function()
 						isInMarker  = true
 						currentZone = k
 						lastZone    = k
+						ShopType 	= v.ShopType
+						ReqJob		= v.ReqJob
 					end
 				end
 			end
@@ -121,12 +86,43 @@ Citizen.CreateThread(function()
 
 		if isInMarker and not hasAlreadyEnteredMarker then
 			hasAlreadyEnteredMarker = true
-			TriggerEvent('esx_shops:hasEnteredMarker', currentZone)
+			if ShopType == 'shop' then
+				if ReqJob ~= nil then
+					for _,y in pairs(ReqJob) do
+						if y == ESX.GetPlayerData().job.name then
+							HasJob = true
+						end
+					end
+						if HasJob then						
+							TriggerEvent('esx_shops:hasEnteredShopMarker', currentZone)
+						else
+							exports['ns_notify']:sendNotify("Wrong Job", "You do not have the required job to use this shop!", 5000, 'error')
+						end
+					else
+						TriggerEvent('esx_shops:hasEnteredShopMarker', currentZone)	
+				end
+			elseif ShopType == 'crafting' then
+				if ReqJob ~= nil then
+					for _,y in pairs(ReqJob) do
+						if y == ESX.GetPlayerData().job.name then
+							HasJob = true
+						end
+					end
+						if HasJob then						
+							TriggerEvent('esx_shops:hasEnteredCraftingMarker', currentZone)
+						else
+							exports['ns_notify']:sendNotify("Wrong Job", "You do not have the required job to use this crafting table!", 5000, 'error')
+						end
+					else
+						TriggerEvent('esx_shops:hasEnteredCraftingMarker', currentZone)
+				end
+			end
 		end
 
 		if not isInMarker and hasAlreadyEnteredMarker then
 			hasAlreadyEnteredMarker = false
 			TriggerEvent('esx_shops:hasExitedMarker', lastZone)
+			HasJob = false
 		end
 
 		if letSleep then
@@ -146,6 +142,8 @@ Citizen.CreateThread(function()
 			if IsControlJustReleased(0, 38) then
 				if currentAction == 'shop_menu' then
                     exports["mf-inventory"]:openOtherInventory(currentActionData.zone)
+				elseif currentAction == 'craft_menu' then
+					exports["mf-inventory"]:openCrafting(currentActionData.zone)
 				end
 
 				currentAction = nil

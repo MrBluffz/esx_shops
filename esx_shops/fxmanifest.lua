@@ -2,7 +2,7 @@ fx_version 'adamant'
 
 game 'gta5'
 
-description 'ESX Shops'
+description 'ESX Shops modified by Mr Bluffz for mf-inventory'
 
 version '1.1.0'
 

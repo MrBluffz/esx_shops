@@ -3,7 +3,7 @@ local ShopItems = {}
 
 TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
 
-RegisterServerEvent('esx_shops:buyItem')
+--[[RegisterServerEvent('esx_shops:buyItem')
 AddEventHandler('esx_shops:buyItem', function(itemName, amount, zone)
 	local _source = source
 	local xPlayer = ESX.GetPlayerFromId(_source)
@@ -44,4 +44,4 @@ AddEventHandler('esx_shops:buyItem', function(itemName, amount, zone)
 		local missingMoney = price - xPlayer.getMoney()
 		xPlayer.showNotification(_U('not_enough', ESX.Math.GroupDigits(missingMoney)))
 	end
-end)
+end)]]
