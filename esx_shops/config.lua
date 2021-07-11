@@ -1,14 +1,15 @@
 Config = {}
-Config.DrawDistance = 100
-Config.MarkerSize = {x = 1.1, y = 1.1, z = 0.9}
-Config.MarkerType =  29
-Config.MarkerColor = {r = 102, g = 102, b = 204, a = 255}
-Config.Locale = 'en'
-
+Config.DrawDistance = 100									-- How far away you can see the cashier point if ShowMarker is true
+Config.MarkerSize = {x = 1.1, y = 1.1, z = 0.9}				-- How big the marker is
+Config.MarkerType =  29										-- What type of marker for your cashier point	See: https://docs.fivem.net/docs/game-references/markers/
+Config.MarkerColor = {r = 102, g = 102, b = 204, a = 255}	-- Marker Color
+Config.Locale = 'en'										-- Set to your language. I only added the english Locale's, so you need to see what I added in en then translate to your language.
+															-- Feel free to submit a pull request with your translations for the 1 or 2 things I added/changed.
 Config.Zones = {
 
-	market = {											-- This name must match the shop identifier or crafting recipe name in MF_Inventory EXACTLY. It is cap sensitive.
-		Pos = {											-- List of all shop/crafting table locations locations that you want to use the identifier above.
+	market = {											-- This name must match the shop identifier or recipe name in MF_Inventory EXACTLY. It is cap sensitive.
+		Pos = {											-- List of all shop/crafting table locations that you want to use the identifier above.
+
 			vector3(-47.29,-1756.7,29.42),
 			vector3(25.81,-1345.25,29.5),
 			vector3(-707.32,-912.9,19.22),
@@ -23,14 +24,14 @@ Config.Zones = {
 			vector3(1699.27,4923.54,42.06),
 			vector3(1728.69,6414.18,35.04)
 		},
-		Size  = 1.0,
-		Type  = 59,
-		Color = 25,
-		ShowBlip = true,
- 		ShowMarker = true,
-		Label = '24/7',
-		ShopType = 'shop',									-- This needs to be 'shop' or 'crafting'
-		ReqJob = {'police'}									-- Delete entire line if you don't want a job check, otherwise make sure your job/jobs are in { } like this example {'insertjob', 'insertjob2'}
+		Size  = 1.0,									-- How big the blip will be on the map/minimap.
+		Type  = 59,										-- Which blip to display 		See: https://docs.fivem.net/docs/game-references/blips/
+		Color = 25,										-- What color Blip you want		See: https://docs.fivem.net/docs/game-references/blips/
+		ShowBlip = true,								-- Set to true if you want blip, set to false if you do NOT want map blip (default: true)
+ 		ShowMarker = true,								-- set to true if you want to see the cashier marker point. set to false if you do not want to see the cashier point. (Default: true)
+		Label = '24/7'									-- This will be the Blip name if you have ShowBlip = true. 
+		ShopType = 'shop'								-- This needs to be either 'shop' or 'crafting'.
+		ReqJob = {'police'}								-- Delete entire line if you don't want a job check, otherwise make sure your job/jobs are in { } like this example {'insertjob', 'insertjob2'}
 	},
 
 	liqour = {
