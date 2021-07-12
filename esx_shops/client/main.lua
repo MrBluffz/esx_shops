@@ -74,7 +74,7 @@ Citizen.CreateThread(function()
 				  		end
 					elseif v.ShopType == 'crafting' then
 						if v.ShowMarker then
-							DrawMarker(Config.MarkerType, v.Pos[i], 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Config.CMarkerSize.x, Config.CMarkerSize.y, Config.CMarkerSize.z, Config.CMarkerColor.r, Config.CMarkerColor.g, Config.CMarkerColor.b, 100, false, true, 2, false, nil, nil, false)
+							DrawMarker(Config.CMarkerType, v.Pos[i], 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Config.CMarkerSize.x, Config.CMarkerSize.y, Config.CMarkerSize.z, Config.CMarkerColor.r, Config.CMarkerColor.g, Config.CMarkerColor.b, 100, false, true, 2, false, nil, nil, false)
 				  		end
 					end
 					letSleep = false
