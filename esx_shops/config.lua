@@ -1,13 +1,7 @@
 Config = {}
-Config.DrawDistance = 100									-- How far away you can see the cashier point if ShowMarker is true
--- Crafting Point Marker
-Config.CMarkerSize = {x = 1.1, y = 1.1, z = 0.9}				-- How big the marker is
-Config.CMarkerType =  0										-- What type of marker for your crafting point	See: https://docs.fivem.net/docs/game-references/markers/
-Config.CMarkerColor = {r = 102, g = 102, b = 204, a = 255}	-- Marker Color
--- Shop Cashier Marker
-Config.SMarkerSize = {x = 1.1, y = 1.1, z = 0.9}				-- How big the marker is
-Config.SMarkerType =  29										-- What type of marker for your cashier point	See: https://docs.fivem.net/docs/game-references/markers/
-Config.SMarkerColor = {r = 102, g = 102, b = 204, a = 255}	-- Marker Color
+Config.DrawDistance = 30									-- How far away you can see the cashier point if ShowMarker is true
+Config.Notify = 'esx'                                 -- OPTIONS: 'esx', 'ns', 'mythic_old', 'mythic_new', 'chat', 'custom'. Adjust custom notification on line 82 of client.lua, change notification message on line 111
+Config.InteractDist = 2.0                             -- Distance from vaults to interact
 
 Config.Locale = 'en'										-- Set to your language. I only added the english Locale's, so you need to see what I added in en then translate to your language.
 -- Feel free to submit a pull request with your translations for the 1 or 2 things I added/changed.
@@ -31,14 +25,18 @@ Config.Zones = {
 			vector3(1699.27,4923.54,42.06),
 			vector3(1728.69,6414.18,35.04)
 		},
-		Size  = 1.0,									-- How big the blip will be on the map/minimap.
-		Type  = 59,										-- Which blip to display 		See: https://docs.fivem.net/docs/game-references/blips/
-		Color = 25,										-- What color Blip you want		See: https://docs.fivem.net/docs/game-references/blips/
+		BlipSize  = 1.0,									-- How big the blip will be on the map/minimap.
+		BlipType  = 59,										-- Which blip to display 		See: https://docs.fivem.net/docs/game-references/blips/
+		BlipColor = 25,										-- What color Blip you want		See: https://docs.fivem.net/docs/game-references/blips/
 		ShowBlip = true,								-- Set to true if you want blip, set to false if you do NOT want map blip (default: true)
  		ShowMarker = true,								-- set to true if you want to see the cashier marker point. set to false if you do not want to see the cashier point. (Default: true)
 		Label = '24/7',									-- This will be the Blip name if you have ShowBlip = true. 
 		ShopType = 'shop',								-- This needs to be either 'shop' or 'crafting'.
-		ReqJob = {'police'}								-- Delete entire line if you don't want a job check, otherwise make sure your job/jobs are in { } like this example {'insertjob', 'insertjob2'}
+		ReqJob = {'police'},								-- Delete entire line if you don't want a job check, otherwise make sure your job/jobs are in { } like this example {'insertjob', 'insertjob2'}
+		MarkerSize = {x = 1.1, y = 1.1, z = 0.9},				-- How big the marker is
+		MarkerType =  29,										-- What type of marker for your cashier point	See: https://docs.fivem.net/docs/game-references/markers/
+		MarkerColor = {r = 102, g = 102, b = 204, a = 255},
+
 	},
 
 	liqour = {
@@ -53,14 +51,17 @@ Config.Zones = {
 			vector3(-1394.24, -606.97, 30.5), --Tequila la
 			vector3(-559.9, 287.0, 82.1) --Bahamamas
 		},
-		Size  = 1.0,
-		Type  = 93,
-		Color = 27,
+		BlipSize  = 1.0,
+		BlipType  = 93,
+		BlipColor = 27,
 		ShowBlip = true,
 		ShowMarker = true,
 		Label = 'Liquor Store',
 		ShopType = 'shop',
-		ReqJob = {'police', 'ambulance'}
+		ReqJob = {'police', 'ambulance'},
+		MarkerSize = {x = 1.1, y = 1.1, z = 0.9},				-- How big the marker is
+		MarkerType =  29,										-- What type of marker for your cashier point	See: https://docs.fivem.net/docs/game-references/markers/
+		MarkerColor = {r = 102, g = 102, b = 204, a = 255},
 	},
 
 	weapon = {
@@ -75,41 +76,65 @@ Config.Zones = {
 			vector3(-330.33,6084.49,31.45),
 			vector3(842.18,-1034.01,28.19)
 		},
-		Size  = 1.0,
-		Type  = 110,
-		Color = 46,
+		BlipSize  = 1.0,
+		BlipType  = 110,
+		BlipColor = 46,
 		ShowBlip = true,
 	  	ShowMarker = true,
 		Label = 'Weapon Shop',
 		ShopType = 'shop',
-		ReqJob = {'police', 'ambulance'}
+		ReqJob = {'police', 'ambulance'},
+		MarkerSize = {x = 1.1, y = 1.1, z = 0.9},				-- How big the marker is
+		MarkerType =  29,										-- What type of marker for your cashier point	See: https://docs.fivem.net/docs/game-references/markers/
+		MarkerColor = {r = 102, g = 102, b = 204, a = 255},
 	},
 
 	pawn = {
 		Pos = {
 			vector3(53.27,-1479.13,29.28)
 		},
-		Size  = 1.0,
-		Type  = 59,
-		Color = 28,
+		BlipSize  = 1.0,
+		BlipType  = 59,
+		BlipColor = 28,
 		ShowBlip = true,
 		ShowMarker = true,
 		Label = 'Pawn Shop',
 		ShopType = 'shop',
-		ReqJob = {'police', 'ambulance'}
+		ReqJob = {'police', 'ambulance'},
+		MarkerSize = {x = 1.1, y = 1.1, z = 0.9},				-- How big the marker is
+		MarkerType =  29,										-- What type of marker for your cashier point	See: https://docs.fivem.net/docs/game-references/markers/
+		MarkerColor = {r = 102, g = 102, b = 204, a = 255},
 	},
 
 	police = {
 		Pos = {
 			vector3(417.09, -1012.57, 29.24)
 		},
-		Size  = 1.0,
-		Type  = 93,
-		Color = 27,
+		BlipSize  = 1.0,
+		BlipType  = 93,
+		BlipColor = 27,
 		ShowBlip = true,
 		ShowMarker = true,
 		Label = 'Police Crafting',
 		ShopType = 'crafting',
-		ReqJob = {'police', 'ambulance'}
+		ReqJob = {'police', 'ambulance'},
+		MarkerSize = {x = 1.1, y = 1.1, z = 0.9},				-- How big the marker is
+		MarkerType =  29,										-- What type of marker for your cashier point	See: https://docs.fivem.net/docs/game-references/markers/
+		MarkerColor = {r = 102, g = 102, b = 204, a = 255},
 	},
 }
+
+-- DO NOT TOUCH BELOW THIS LINE
+
+for k,v in pairs(Config.Zones) do
+	if v.ReqJob then
+	  local jobLookup = {}
+  
+	  for _,name in ipairs(v.ReqJob) do
+		jobLookup[name] = true
+	  end
+  
+	  v.ReqJob = jobLookup
+	end
+  end
+  
