@@ -1,6 +1,10 @@
 # esx_shops
 ## ESX_Shops Modified by Mr Bluffz to work with MF_Inventory
 
+# UPDATE v2
+
+Replaced basically the entire client file with all the new code. Added new config options. Markers are now specific to a shop, instead of general markers. Added the notification system in config, making it easier for people.
+
 
 # UPDATE
 I have added job checks, and Shop Type so you can do crafting tables, and shops, both with job checks if you want. See photos below for more details.
