@@ -1,6 +1,6 @@
 Config = {}
 Config.DrawDistance = 30									-- How far away you can see the cashier point if ShowMarker is true
-Config.Notify = 'esx'                                 -- OPTIONS: 'esx', 'ns', 'mythic_old', 'mythic_new', 'chat', 'custom'. Adjust custom notification on line 82 of client.lua, change notification message on line 111
+Config.Notify = 'esx'                                 -- OPTIONS: 'esx', 'ns', 'mythic_old', 'mythic_new', 'chat', 'custom'. Adjust custom notification on line 79 of client.lua, change notification message on line 118
 Config.InteractDist = 2.0                             -- Distance from vaults to interact
 
 Config.Locale = 'en'										-- Set to your language. I only added the english Locale's, so you need to see what I added in en then translate to your language.
@@ -35,7 +35,7 @@ Config.Zones = {
 		ReqJob = {'police'},								-- Delete entire line if you don't want a job check, otherwise make sure your job/jobs are in { } like this example {'insertjob', 'insertjob2'}
 		MarkerSize = {x = 1.1, y = 1.1, z = 0.9},				-- How big the marker is
 		MarkerType =  29,										-- What type of marker for your cashier point	See: https://docs.fivem.net/docs/game-references/markers/
-		MarkerColor = {r = 102, g = 102, b = 204, a = 255},
+		MarkerColor = {r = 102, g = 102, b = 204, a = 255},		-- What color do you want your marker.
 
 	},
 
