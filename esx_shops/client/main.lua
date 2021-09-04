@@ -100,37 +100,44 @@ Citizen.CreateThread(function()
   local helpCraftLabel = _U('craft_menu')
 	local IsInMarker, AlreadyInMarker = false, false
   local drawcheck = Config.DrawDistance
+  local nCounter = 0
 	setupEsx()
 	setupShops()
   
 	while true do
 	  local ped = PlayerPedId()
 	  local pos = GetEntityCoords(ped)
-  
 	  local closestShop,ShopDist,MarkerPos = getClosestShop(pos)
 	  local shop = Config.Zones[closestShop]
 
     if ShopDist < Config.DrawDistance then
-        if shop.ShowMarker and Config.MarkerSetting == 'marker' and not shop.ReqJob or shop.ReqJob[playerData.job.name] then
-          DrawMarker(shop.MarkerType, MarkerPos, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, shop.MarkerSize.x, shop.MarkerSize.y, shop.MarkerSize.z, shop.MarkerColor.r, shop.MarkerColor.g, shop.MarkerColor.b, 100, false, true, 2, false, nil, nil, false)
-        elseif shop.ShowMarker and Config.MarkerSetting == 'fivem-target' and not shop.ReqJob or shop.ReqJob[playerData.job.name] then
-          exports["fivem-target"]:AddTargetPoint({
-            name = "openShop",
-            label = "Shop",
-            icon = "fas fa-cash-register",
-            point = MarkerPos,
-            interactDist = 2.5,
-            onInteract = onInteract,
-            options = {
-              {
-                name = "open_shop",
-                label = "Open"
-              }     
-            }
-          })
-        elseif not shop.ReqJob or shop.ReqJob[playerData.job.name] then
-          notify('Marker Error!', 'There was an error with creating markers! Make sure you have Config.MarkerSetting set correctly.', 5000, 'error')
+      if Config.MarkerSetting == 'marker' then
+        if shop.ShowMarker then
+          if not shop.ReqJob or shop.ReqJob[playerData.job.name] then
+            DrawMarker(shop.MarkerType, MarkerPos, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, shop.MarkerSize.x, shop.MarkerSize.y, shop.MarkerSize.z, shop.MarkerColor.r, shop.MarkerColor.g, shop.MarkerColor.b, 100, false, true, 2, false, nil, nil, false)
+          end
         end
+      elseif Config.MarkerSetting == 'fivem-target' then
+        exports["fivem-target"]:AddTargetPoint({
+          name = "openShop",
+          label = "Shop",
+          icon = "fas fa-cash-register",
+          point = MarkerPos,
+          interactDist = 2.5,
+          onInteract = onInteract,
+          options = {
+            {
+              name = "open_shop",
+              label = "Open"
+            }     
+          }
+        })
+      else
+        if Ncounter == 0 then
+          notify("Config Error!", "Your developer did not set the Config.MarkerSetting correctly. Go yell at them", 5000, 'error')
+          Ncounter = Ncounter + 1
+        end
+      end
     end
 
 		if not lastShop or lastShop ~= closestShop then
@@ -140,6 +147,7 @@ Citizen.CreateThread(function()
 	  end
 		
 	  if ShopDist <= Config.InteractDist then
+      Ncounter = 0
 		  lastShop = closestShop
 		  IsInMarker = true
 
