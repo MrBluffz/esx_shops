@@ -1,11 +1,12 @@
--- Below this line is the re-write
-
 local ESX
 local playerData
+local BlipList = {}
 
 RegisterNetEvent('esx:setJob')
 AddEventHandler('esx:setJob',function(j)
   playerData.job = j
+  deleteBlips()
+	setupShops()
 end)
 
 function showHelpNotification(msg)
@@ -29,39 +30,51 @@ function setupEsx()
 end
 
 function getClosestShop(pos)
-    local closest,dist,posi
-  
+  local closest,dist,posi
+
+  for k,v in pairs(Config.Zones) do
+    for i = 1, #v.Pos, 1 do
+      local d = #(v.Pos[i] - pos)
+      if not dist or d < dist then
+        posi = v.Pos[i]
+        closest = k
+        dist = d
+      end
+    end
+  end
+
+  return closest,dist,posi
+end
+
+function setupShops()
+	if playerData.job ~= nil then
     for k,v in pairs(Config.Zones) do
-      for i = 1, #v.Pos, 1 do
-        local d = #(v.Pos[i] - pos)
-        if not dist or d < dist then
-          posi = v.Pos[i]
-          closest = k
-          dist = d
+      if not v.ReqJob or v.ReqJob[playerData.job.name] then
+        for i = 1, #v.Pos, 1 do
+          if v.ShowBlip then
+          local blip = AddBlipForCoord(v.Pos[i])
+
+          SetBlipSprite (blip, v.BlipType)
+          SetBlipScale  (blip, v.BlipSize)
+          SetBlipColour (blip, v.BlipColor)
+          SetBlipAsShortRange(blip, true)
+          SetBlipDisplay(blip, v.BlipDisplay or 2)
+          BeginTextCommandSetBlipName('STRING')
+          AddTextComponentSubstringPlayerName(v.Label)
+          EndTextCommandSetBlipName(blip)
+          table.insert(BlipList, blip)
+          end
         end
       end
     end
-  
-    return closest,dist,posi
   end
+end
 
-function setupShops()
-	for k,v in pairs(Config.Zones) do
-		for i = 1, #v.Pos, 1 do
-			if v.ShowBlip then
-			local blip = AddBlipForCoord(v.Pos[i])
-
-			SetBlipSprite (blip, v.BlipType)
-			SetBlipScale  (blip, v.BlipSize)
-			SetBlipColour (blip, v.BlipColor)
-			SetBlipAsShortRange(blip, true)
-
-			BeginTextCommandSetBlipName('STRING')
-			AddTextComponentSubstringPlayerName(v.Label)
-			EndTextCommandSetBlipName(blip)
-			end
-		end
-	end
+function deleteBlips()
+  for i=1, #BlipList, 1 do
+    RemoveBlip(BlipList[i])
+    BlipList[i] = nil
+  end
 end
 
 function notify(title, msg, duration, type)
@@ -98,8 +111,25 @@ Citizen.CreateThread(function()
 	  local shop = Config.Zones[closestShop]
 
     if ShopDist < Config.DrawDistance then
-        if shop.ShowMarker then
+        if shop.ShowMarker and Config.MarkerSetting == 'marker' and not shop.ReqJob or shop.ReqJob[playerData.job.name] then
           DrawMarker(shop.MarkerType, MarkerPos, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, shop.MarkerSize.x, shop.MarkerSize.y, shop.MarkerSize.z, shop.MarkerColor.r, shop.MarkerColor.g, shop.MarkerColor.b, 100, false, true, 2, false, nil, nil, false)
+        elseif shop.ShowMarker and Config.MarkerSetting == 'fivem-target' and not shop.ReqJob or shop.ReqJob[playerData.job.name] then
+          exports["fivem-target"]:AddTargetPoint({
+            name = "openShop",
+            label = "Shop",
+            icon = "fas fa-cash-register",
+            point = MarkerPos,
+            interactDist = 2.5,
+            onInteract = onInteract,
+            options = {
+              {
+                name = "open_shop",
+                label = "Open"
+              }     
+            }
+          })
+        elseif not shop.ReqJob or shop.ReqJob[playerData.job.name] then
+          notify('Marker Error!', 'There was an error with creating markers! Make sure you have Config.MarkerSetting set correctly.', 5000, 'error')
         end
     end
 
