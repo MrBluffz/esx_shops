@@ -1,8 +1,8 @@
 Config = {}
 Config.DrawDistance = 30									-- How far away you can see the cashier point if ShowMarker is true
-Config.Notify = 'esx'                                 -- OPTIONS: 'esx', 'ns', 'mythic_old', 'mythic_new', 'chat', 'custom'. Adjust custom notification on line 79 of client.lua, change notification message on line 118
+Config.Notify = 'ns'                                 -- OPTIONS: 'esx', 'ns', 'mythic_old', 'mythic_new', 'chat', 'custom'. Adjust custom notification on line 79 of client.lua, change notification message on line 118
 Config.InteractDist = 2.0                             -- Distance from vaults to interact
-
+Config.MarkerSetting = 'marker'						-- ['marker' | 'fivem-target'] put which system you want to use.
 Config.Locale = 'en'										-- Set to your language. I only added the english Locale's, so you need to see what I added in en then translate to your language.
 -- Feel free to submit a pull request with your translations for the 1 or 2 things I added/changed.
 
@@ -32,14 +32,13 @@ Config.Zones = {
  		ShowMarker = true,								-- set to true if you want to see the cashier marker point. set to false if you do not want to see the cashier point. (Default: true)
 		Label = '24/7',									-- This will be the Blip name if you have ShowBlip = true. 
 		ShopType = 'shop',								-- This needs to be either 'shop' or 'crafting'.
-		ReqJob = {'police'},								-- Delete entire line if you don't want a job check, otherwise make sure your job/jobs are in { } like this example {'insertjob', 'insertjob2'}
 		MarkerSize = {x = 1.1, y = 1.1, z = 0.9},				-- How big the marker is
 		MarkerType =  29,										-- What type of marker for your cashier point	See: https://docs.fivem.net/docs/game-references/markers/
 		MarkerColor = {r = 102, g = 102, b = 204, a = 255},		-- What color do you want your marker.
 
 	},
 
-	liqour = {
+	liquor = {
 		Pos = {
 			vector3(1135.8, -982.2, 46.4),
 			vector3(-1222.9, -906.9, 12.5),
@@ -58,7 +57,6 @@ Config.Zones = {
 		ShowMarker = true,
 		Label = 'Liquor Store',
 		ShopType = 'shop',
-		ReqJob = {'police', 'ambulance'},
 		MarkerSize = {x = 1.1, y = 1.1, z = 0.9},				-- How big the marker is
 		MarkerType =  29,										-- What type of marker for your cashier point	See: https://docs.fivem.net/docs/game-references/markers/
 		MarkerColor = {r = 102, g = 102, b = 204, a = 255},
@@ -83,7 +81,6 @@ Config.Zones = {
 	  	ShowMarker = true,
 		Label = 'Weapon Shop',
 		ShopType = 'shop',
-		ReqJob = {'police', 'ambulance'},
 		MarkerSize = {x = 1.1, y = 1.1, z = 0.9},				-- How big the marker is
 		MarkerType =  29,										-- What type of marker for your cashier point	See: https://docs.fivem.net/docs/game-references/markers/
 		MarkerColor = {r = 102, g = 102, b = 204, a = 255},
@@ -91,7 +88,7 @@ Config.Zones = {
 
 	pawn = {
 		Pos = {
-			vector3(53.27,-1479.13,29.28)
+			vector3(53.27,-1479.13,-229.28)
 		},
 		BlipSize  = 1.0,
 		BlipType  = 59,
@@ -100,31 +97,92 @@ Config.Zones = {
 		ShowMarker = true,
 		Label = 'Pawn Shop',
 		ShopType = 'shop',
-		ReqJob = {'police', 'ambulance'},
 		MarkerSize = {x = 1.1, y = 1.1, z = 0.9},				-- How big the marker is
 		MarkerType =  29,										-- What type of marker for your cashier point	See: https://docs.fivem.net/docs/game-references/markers/
 		MarkerColor = {r = 102, g = 102, b = 204, a = 255},
 	},
 
-	police = {
+	generalstore = {
 		Pos = {
-			vector3(417.09, -1012.57, 29.24)
+			vector3(2749.5085, 3488.8130, 55.6713)
 		},
 		BlipSize  = 1.0,
-		BlipType  = 93,
-		BlipColor = 27,
+		BlipType  = 59,
+		BlipColor = 38,
 		ShowBlip = true,
 		ShowMarker = true,
-		Label = 'Police Crafting',
-		ShopType = 'crafting',
-		ReqJob = {'police', 'ambulance'},
+		Label = 'General Supplies',
+		ShopType = 'shop',
 		MarkerSize = {x = 1.1, y = 1.1, z = 0.9},				-- How big the marker is
 		MarkerType =  29,										-- What type of marker for your cashier point	See: https://docs.fivem.net/docs/game-references/markers/
 		MarkerColor = {r = 102, g = 102, b = 204, a = 255},
 	},
+
+	armoury = {
+		Pos = {
+			vector3(479.15,-996.71,30.69)
+		},
+		BlipSize  = 1.0,
+		BlipType  = 59,
+		BlipColor = 28,
+		ShowBlip = false,
+		ShowMarker = false,
+		Label = 'Police Armoury',
+		ShopType = 'shop',
+		MarkerSize = {x = 1.1, y = 1.1, z = 0.9},				-- How big the marker is
+		MarkerType =  29,										-- What type of marker for your cashier point	See: https://docs.fivem.net/docs/game-references/markers/
+		MarkerColor = {r = 102, g = 102, b = 204, a = 255},
+	},
+
+	pharmacy = {
+		Pos = {
+			vector3(351.06,-588.76,28.8),
+			vector3(260.8480, -1358.5306, 24.5378),
+			vector3(-176.4462, 6383.3496, 31.4955),
+			vector3(-252.4284, 6335.7603, 32.4588),
+			vector3(1833.0386, 3677.1519, 34.2749),
+		},
+		BlipSize  = 1.0,
+		BlipType  = 51,
+		BlipColor = 69,
+		ShowBlip = true,
+		ShowMarker = true,
+		Label = 'Pharmacy',
+		ShopType = 'shop',
+		MarkerSize = {x = 1.1, y = 1.1, z = 0.9},				-- How big the marker is
+		MarkerType =  29,										-- What type of marker for your cashier point	See: https://docs.fivem.net/docs/game-references/markers/
+		MarkerColor = {r = 102, g = 102, b = 204, a = 255},
+	},
+
+	electronics = {
+		Pos = {
+			vector3(-659.3655, -857.0107, 24.490),
+			vector3(1133.6647, -471.9253, 66.7189)
+		},
+		BlipSize  = 0.8,
+		BlipType  = 521,
+		BlipColor = 26,
+		ShowBlip = true,
+		ShowMarker = true,
+		Label = 'Digiden',
+		ShopType = 'shop',
+		MarkerSize = {x = 1.1, y = 1.1, z = 0.9},				-- How big the marker is
+		MarkerType =  29,										-- What type of marker for your cashier point	See: https://docs.fivem.net/docs/game-references/markers/
+		MarkerColor = {r = 102, g = 102, b = 204, a = 255},
+	},
+
 }
 
--- DO NOT TOUCH BELOW THIS LINE
+-- DO NOT touch/remove BELOW THIS LINE
+-- DO NOT touch/remove BELOW THIS LINE
+-- DO NOT touch/remove BELOW THIS LINE
+-- DO NOT touch/remove BELOW THIS LINE
+-- DO NOT touch/remove BELOW THIS LINE
+-- DO NOT touch/remove BELOW THIS LINE
+-- DO NOT touch/remove BELOW THIS LINE
+-- DO NOT touch/remove BELOW THIS LINE
+-- DO NOT touch/remove BELOW THIS LINE
+
 
 for k,v in pairs(Config.Zones) do
 	if v.ReqJob then
@@ -137,4 +195,3 @@ for k,v in pairs(Config.Zones) do
 	  v.ReqJob = jobLookup
 	end
   end
-  
