@@ -129,6 +129,7 @@ Config.Zones = {
 		ShowMarker = false,
 		Label = 'Police Armoury',
 		ShopType = 'shop',
+		ReqJob = {'police', 'lspd'},
 		MarkerSize = {x = 1.1, y = 1.1, z = 0.9},				-- How big the marker is
 		MarkerType =  29,										-- What type of marker for your cashier point	See: https://docs.fivem.net/docs/game-references/markers/
 		MarkerColor = {r = 102, g = 102, b = 204, a = 255},
