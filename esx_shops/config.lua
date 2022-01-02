@@ -1,10 +1,16 @@
 Config = {}
 Config.DrawDistance = 30									-- How far away you can see the cashier point if ShowMarker is true
-Config.Notify = 'ns'                                 -- OPTIONS: 'esx', 'ns', 'mythic_old', 'mythic_new', 'chat', 'custom'. Adjust custom notification on line 79 of client.lua, change notification message on line 118
+Config.Notify = 'esx'                                 -- OPTIONS: 'esx', 'ns', 'mythic_old', 'mythic_new', 'chat', 'custom'. Adjust custom notification on line 79 of client.lua, change notification message on line 118
 Config.InteractDist = 2.0                             -- Distance from vaults to interact
-Config.MarkerSetting = 'marker'						-- ['marker' | 'fivem-target'] put which system you want to use.
 Config.Locale = 'en'										-- Set to your language. I only added the english Locale's, so you need to see what I added in en then translate to your language.
 -- Feel free to submit a pull request with your translations for the 1 or 2 things I added/changed.
+
+Config.FiveMTarget = true -- Set to false if not using FiveM-target. It will use markers instead.
+
+Config.UseLicense = false -- [true | false] Set to true to require a gun license for weapon shops
+Config.LicenseName = 'weapon_license' -- set your weapon license here. If above is false, this doesn't matter.
+
+
 
 Config.Zones = {
 
@@ -80,7 +86,7 @@ Config.Zones = {
 		ShowBlip = true,
 	  	ShowMarker = true,
 		Label = 'Weapon Shop',
-		ShopType = 'shop',
+		ShopType = 'weapon',
 		MarkerSize = {x = 1.1, y = 1.1, z = 0.9},				-- How big the marker is
 		MarkerType =  29,										-- What type of marker for your cashier point	See: https://docs.fivem.net/docs/game-references/markers/
 		MarkerColor = {r = 102, g = 102, b = 204, a = 255},
@@ -129,7 +135,6 @@ Config.Zones = {
 		ShowMarker = false,
 		Label = 'Police Armoury',
 		ShopType = 'shop',
-		ReqJob = {'police', 'lspd'},
 		MarkerSize = {x = 1.1, y = 1.1, z = 0.9},				-- How big the marker is
 		MarkerType =  29,										-- What type of marker for your cashier point	See: https://docs.fivem.net/docs/game-references/markers/
 		MarkerColor = {r = 102, g = 102, b = 204, a = 255},
@@ -195,4 +200,4 @@ for k,v in pairs(Config.Zones) do
   
 	  v.ReqJob = jobLookup
 	end
-  end
+end
