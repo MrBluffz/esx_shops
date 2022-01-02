@@ -1,6 +1,12 @@
 # esx_shops
 ## ESX_Shops Modified to work with MF_Inventory
 
+# Update v3
+
+added fivem-target support.
+
+Added weapon shop checking for license, if the ShopType is set as weapon.
+
 # UPDATE v2
 
 Replaced basically the entire client file with all the new code. Added new config options. Markers are now specific to a shop, instead of general markers. Added the notification system in config, making it easier for people.
