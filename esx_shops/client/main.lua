@@ -143,7 +143,7 @@ setupFiveMTarget = function()
 end
 
 onInteract = function(targetName, optionName, vars, entityHit)
-	local ped = PlayerPedId()
+	local ped = PlayerId()
 	local serverID = GetPlayerServerId(ped)
 	if vars.type == 'crafting' then
   exports["mf-inventory"]:openCrafting(optionName)
@@ -162,7 +162,6 @@ onInteract = function(targetName, optionName, vars, entityHit)
 	elseif vars.type == 'shop' then
 		exports["mf-inventory"]:openOtherInventory(optionName)
 	end
-
 end
 
 Citizen.CreateThread(function()
@@ -179,7 +178,6 @@ Citizen.CreateThread(function()
 		NotFiveM = false
 	end
 	while NotFiveM do
-  print('this is still on for some reason')
 		local ped = PlayerPedId()
 		local pos = GetEntityCoords(ped)
 		local closestShop, ShopDist, MarkerPos = getClosestShop(pos)
