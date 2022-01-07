@@ -90,11 +90,7 @@ function notify(title, msg, duration, type)
 	end
 end
 
-removeFiveMTarget = function()
- for k,v in pairs(Config.Zones) do
- exports['fivem-target']:RemoveTargetPoint(k)
- end
-end
+removeFiveMTarget = function() for k, v in pairs(Config.Zones) do exports['fivem-target']:RemoveTargetPoint(k) end end
 
 setupFiveMTarget = function()
 	for k, v in pairs(Config.Zones) do
@@ -115,7 +111,7 @@ setupFiveMTarget = function()
 					},
 					vars = {
 						type = v.ShopType,
-					}
+					},
 				})
 			end
 		else
@@ -135,7 +131,7 @@ setupFiveMTarget = function()
 					},
 					vars = {
 						type = v.ShopType,
-					}
+					},
 				})
 			end
 		end
@@ -146,7 +142,7 @@ onInteract = function(targetName, optionName, vars, entityHit)
 	local ped = PlayerId()
 	local serverID = GetPlayerServerId(ped)
 	if vars.type == 'crafting' then
-  exports["mf-inventory"]:openCrafting(optionName)
+		exports["mf-inventory"]:openCrafting(optionName)
 	elseif vars.type == 'weapon' then
 		if Config.UseLicense then
 			ESX.TriggerServerCallback('esx_license:checkLicense', function(hasWeaponLicense)
@@ -164,10 +160,11 @@ onInteract = function(targetName, optionName, vars, entityHit)
 	end
 end
 
+local helpShopLabel = _U('press_menu')
+local helpCraftLabel = _U('craft_menu')
+
 Citizen.CreateThread(function()
 	local lastShop
-	local helpShopLabel = _U('press_menu')
-	local helpCraftLabel = _U('craft_menu')
 	local IsInMarker, AlreadyInMarker = false, false
 	local drawcheck = Config.DrawDistance
 	local NotFiveM = true
@@ -203,39 +200,42 @@ Citizen.CreateThread(function()
 
 			AlreadyInMarker = true
 
-			if not shop.ReqJob or shop.ReqJob[playerData.job.name] then
-				showHelpNotification(helpShopLabel)
-				if IsControlJustPressed(0, 38) then
-					if shop.ShopType == 'shop' then
-						exports["mf-inventory"]:openOtherInventory(closestShop)
-					elseif shop.ShopType == 'crafting' then
-						exports["mf-inventory"]:openCrafting(closestShop)
-					elseif shop.ShopType == 'weapon' then
-						if Config.UseLicense then
-							ESX.TriggerServerCallback('esx_license:checkLicense', function(hasWeaponLicense)
-								if hasWeaponLicense then
-									exports["mf-inventory"]:openOtherInventory(closestShop)
-								else
-									notify('No License', 'You do not have the appropriate license', 5000, 'error')
-								end
-							end, serverID, Config.LicenseName)
-						else
-							exports["mf-inventory"]:openOtherInventory(closestShop)
-						end
-					end
-				end
-			end
+			if not shop.ReqJob or shop.ReqJob[playerData.job.name] then HelpNotif[shop.ShopType](closestShop, serverID) end
 
 		end
 		Wait(ShopDist < drawcheck and 0 or 750)
 	end
 end)
 
+HelpNotif = {
+	shop = function(shop)
+		showHelpNotification(helpShopLabel)
+		if IsControlJustPressed(0, 38) then exports["mf-inventory"]:openOtherInventory(shop) end
+	end,
+	crafting = function(shop)
+		showHelpNotification(helpCraftLabel)
+		if IsControlJustPressed(0, 38) then exports["mf-inventory"]:openCrafting(shop) end
+	end,
+	weapon = function(shop, serverID)
+		showHelpNotification(helpShopLabel)
+		if IsControlJustPressed(0, 38) then
+			if Config.UseLicense then
+				ESX.TriggerServerCallback('esx_license:checkLicense', function(hasWeaponLicense)
+					if hasWeaponLicense then
+						exports["mf-inventory"]:openOtherInventory(shop)
+					else
+						notify('No License', 'You do not have the appropriate license', 5000, 'error')
+					end
+				end, serverID, Config.LicenseName)
+			else
+				exports["mf-inventory"]:openOtherInventory(shop)
+			end
+		end
+	end,
+}
 
 AddEventHandler('onResourceStop', function(resourceName)
- if (GetCurrentResourceName() ~= resourceName) then
-   return
- end
- removeFiveMTarget()
- print('The resource ' .. resourceName .. ' was stopped.')
+	if (GetCurrentResourceName() ~= resourceName) then return end
+	removeFiveMTarget()
+	print('The resource ' .. resourceName .. ' was stopped.')
 end)
