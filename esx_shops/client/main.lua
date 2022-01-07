@@ -180,7 +180,6 @@ Citizen.CreateThread(function()
 		local closestShop, ShopDist, MarkerPos = getClosestShop(pos)
 		local shop = Config.Zones[closestShop]
 		local serverID = GetPlayerServerId(ped)
-
 		if ShopDist < Config.DrawDistance then
 			if shop.ShowMarker then
 				if not shop.ReqJob or shop.ReqJob[playerData.job.name] then
@@ -188,20 +187,14 @@ Citizen.CreateThread(function()
 				end
 			end
 		end
-
 		if not lastShop or lastShop ~= closestShop then if lastShop then AlreadyInMarker = false end end
-
 		if ShopDist <= Config.InteractDist then
 			Ncounter = 0
 			lastShop = closestShop
 			IsInMarker = true
-
 			if not AlreadyInMarker and IsInMarker then if shop.ReqJob and not shop.ReqJob[playerData.job.name] then notify("Wrong Job", "You do not have the correct job to access this Shop!", 5000, 'error') end end
-
 			AlreadyInMarker = true
-
 			if not shop.ReqJob or shop.ReqJob[playerData.job.name] then HelpNotif[shop.ShopType](closestShop, serverID) end
-
 		end
 		Wait(ShopDist < drawcheck and 0 or 750)
 	end
