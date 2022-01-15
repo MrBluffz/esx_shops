@@ -167,36 +167,37 @@ Citizen.CreateThread(function()
 	local lastShop
 	local IsInMarker, AlreadyInMarker = false, false
 	local drawcheck = Config.DrawDistance
-	local NotFiveM = true
 	setupEsx()
+ Wait(1000)
 	setupShops()
+ Wait(1000)
 	if Config.FiveMTarget then
 		setupFiveMTarget()
-		NotFiveM = false
-	end
-	while NotFiveM do
-		local ped = PlayerPedId()
-		local pos = GetEntityCoords(ped)
-		local closestShop, ShopDist, MarkerPos = getClosestShop(pos)
-		local shop = Config.Zones[closestShop]
-		local serverID = GetPlayerServerId(ped)
-		if ShopDist < Config.DrawDistance then
-			if shop.ShowMarker then
-				if not shop.ReqJob or shop.ReqJob[playerData.job.name] then
-					DrawMarker(shop.MarkerType, MarkerPos, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, shop.MarkerSize.x, shop.MarkerSize.y, shop.MarkerSize.z, shop.MarkerColor.r, shop.MarkerColor.g, shop.MarkerColor.b, 100, false, true, 2, false, nil, nil, false)
+	else
+		while true do
+			local ped = PlayerPedId()
+			local pos = GetEntityCoords(ped)
+			local closestShop, ShopDist, MarkerPos = getClosestShop(pos)
+			local shop = Config.Zones[closestShop]
+			local serverID = GetPlayerServerId(ped)
+			if ShopDist < Config.DrawDistance then
+				if shop.ShowMarker then
+					if not shop.ReqJob or shop.ReqJob[playerData.job.name] then
+						DrawMarker(shop.MarkerType, MarkerPos, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, shop.MarkerSize.x, shop.MarkerSize.y, shop.MarkerSize.z, shop.MarkerColor.r, shop.MarkerColor.g, shop.MarkerColor.b, 100, false, true, 2, false, nil, nil, false)
+					end
 				end
 			end
+			if not lastShop or lastShop ~= closestShop then if lastShop then AlreadyInMarker = false end end
+			if ShopDist <= Config.InteractDist then
+				Ncounter = 0
+				lastShop = closestShop
+				IsInMarker = true
+				if not AlreadyInMarker and IsInMarker then if shop.ReqJob and not shop.ReqJob[playerData.job.name] then notify("Wrong Job", "You do not have the correct job to access this Shop!", 5000, 'error') end end
+				AlreadyInMarker = true
+				if not shop.ReqJob or shop.ReqJob[playerData.job.name] then HelpNotif[shop.ShopType](closestShop, serverID) end
+			end
+			Wait(ShopDist < drawcheck and 0 or 750)
 		end
-		if not lastShop or lastShop ~= closestShop then if lastShop then AlreadyInMarker = false end end
-		if ShopDist <= Config.InteractDist then
-			Ncounter = 0
-			lastShop = closestShop
-			IsInMarker = true
-			if not AlreadyInMarker and IsInMarker then if shop.ReqJob and not shop.ReqJob[playerData.job.name] then notify("Wrong Job", "You do not have the correct job to access this Shop!", 5000, 'error') end end
-			AlreadyInMarker = true
-			if not shop.ReqJob or shop.ReqJob[playerData.job.name] then HelpNotif[shop.ShopType](closestShop, serverID) end
-		end
-		Wait(ShopDist < drawcheck and 0 or 750)
 	end
 end)
 
