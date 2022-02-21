@@ -176,10 +176,11 @@ Citizen.CreateThread(function()
 	else
 		while true do
 			local ped = PlayerPedId()
+   			local id = PlayerId()
 			local pos = GetEntityCoords(ped)
 			local closestShop, ShopDist, MarkerPos = getClosestShop(pos)
 			local shop = Config.Zones[closestShop]
-			local serverID = GetPlayerServerId(ped)
+			local serverID = GetPlayerServerId(id)
 			if ShopDist < Config.DrawDistance then
 				if shop.ShowMarker then
 					if not shop.ReqJob or shop.ReqJob[playerData.job.name] then
