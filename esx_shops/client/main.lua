@@ -94,45 +94,47 @@ removeFiveMTarget = function() for k, v in pairs(Config.Zones) do exports['fivem
 
 setupFiveMTarget = function()
 	for k, v in pairs(Config.Zones) do
-		if v.ShopType ~= 'crafting' then
-			for i = 1, #v.Pos do
-				exports["fivem-target"]:AddTargetPoint({
-					name = k .. " " .. i,
-					label = v.Label,
-					icon = "fas fa-shopping-basket",
-					point = v.Pos[i],
-					interactDist = 2.5,
-					onInteract = onInteract,
-					options = {
-						{
-							name = k,
-							label = "Shop",
+  if not v.ReqJob or v.ReqJob[playerData.job.name] then
+			if v.ShopType ~= 'crafting' then
+				for i = 1, #v.Pos do
+					exports["fivem-target"]:AddTargetPoint({
+						name = k .. " " .. i,
+						label = v.Label,
+						icon = "fas fa-shopping-basket",
+						point = v.Pos[i],
+						interactDist = 2.5,
+						onInteract = onInteract,
+						options = {
+							{
+								name = k,
+								label = "Shop",
+							},
 						},
-					},
-					vars = {
-						type = v.ShopType,
-					},
-				})
-			end
-		else
-			for i = 1, #v.Pos do
-				exports["fivem-target"]:AddTargetPoint({
-					name = k .. " " .. i,
-					label = v.Label,
-					icon = "fas fa-tools",
-					point = v.Pos[i],
-					interactDist = 2.5,
-					onInteract = onInteract,
-					options = {
-						{
-							name = k,
-							label = "Crafting",
+						vars = {
+							type = v.ShopType,
 						},
-					},
-					vars = {
-						type = v.ShopType,
-					},
-				})
+					})
+				end
+			else
+				for i = 1, #v.Pos do
+					exports["fivem-target"]:AddTargetPoint({
+						name = k .. " " .. i,
+						label = v.Label,
+						icon = "fas fa-tools",
+						point = v.Pos[i],
+						interactDist = 2.5,
+						onInteract = onInteract,
+						options = {
+							{
+								name = k,
+								label = "Crafting",
+							},
+						},
+						vars = {
+							type = v.ShopType,
+						},
+					})
+				end
 			end
 		end
 	end
