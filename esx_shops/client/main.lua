@@ -233,6 +233,6 @@ HelpNotif = {
 
 AddEventHandler('onResourceStop', function(resourceName)
 	if (GetCurrentResourceName() ~= resourceName) then return end
-	removeFiveMTarget()
+        if Config.FiveMTarget then removeFiveMTarget() end
 	print('The resource ' .. resourceName .. ' was stopped.')
 end)
